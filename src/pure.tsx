@@ -79,7 +79,9 @@ export async function render(
     // default to document.body instead of documentElement to avoid output of potentially-large
     // head elements (such as JSS style blocks) in debug output
     baseElement = document.body
-    document.body.setAttribute(getTestIdAttribute(), nanoid())
+    if (!document.body.hasAttribute(getTestIdAttribute())) {
+      document.body.setAttribute(getTestIdAttribute(), nanoid())
+    }
   }
 
   if (!container) {

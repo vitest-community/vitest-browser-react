@@ -3,7 +3,6 @@ import { page, userEvent } from 'vitest/browser'
 import { Button } from 'react-aria-components'
 import { Suspense } from 'react'
 import { render } from 'vitest-browser-react'
-import * as vitestUtilsHelpersModule from '@vitest/utils/helpers'
 import { HelloWorld } from './fixtures/HelloWorld'
 import { Counter } from './fixtures/Counter'
 import { SuspendedHelloWorld } from './fixtures/SuspendedHelloWorld'
@@ -53,10 +52,7 @@ test('waits for suspended boundaries', async ({ onTestFinished }) => {
   expect(page.getByText('Hello Vitest')).toBeInTheDocument()
 })
 
-test('should use default testid as the root selector', async ({ task }) => {
-  vi.mocked(vitestUtilsHelpersModule.nanoid).mockImplementation(
-    () => 'Random id',
-  )
+test('should use default testid as the root selector', async () => {
   const stuff = document.createElement('div')
   stuff.textContent = 'foo'
   document.body.appendChild(stuff)
@@ -64,12 +60,17 @@ test('should use default testid as the root selector', async ({ task }) => {
   const screen = await render(<div>Render</div>)
   const selector = page.elementLocator(screen.baseElement).selector
 
-  if (task.file.projectName === 'prod (chromium)') {
-    expect(selector.startsWith('internal:testid=[')).toBe(true)
-  }
-  else {
-    expect(selector).toEqual('internal:testid=[data-testid="Random id"s]')
-  }
+  expect(selector).toMatch(/^internal:testid=\[[^\]]*\]$/)
+})
 
-  vi.mocked(vitestUtilsHelpersModule.nanoid).mockRestore()
+test('should not override testid attribute if already set', async () => {
+  document.body.setAttribute('data-testid', 'custom-id')
+  const stuff = document.createElement('div')
+  stuff.textContent = 'foo'
+  document.body.appendChild(stuff)
+
+  const screen = await render(<div>Render</div>)
+  const selector = page.elementLocator(screen.baseElement).selector
+
+  expect(selector).toBe(`internal:testid=[data-testid="custom-id"s]`)
 })
