@@ -16,6 +16,10 @@ export default defineConfig({
         test: { name: 'dev' },
         resolve: { conditions: ['vdev'] },
       },
+      {
+        extends: true,
+        test: { name: 'selector-custom-attr', include: ['test/render-selector.test.tsx'], browser: { locators: { testIdAttribute: 'data-custom-test-id' } } },
+      },
     ],
     printConsoleTrace: true,
     browser: {
