@@ -3,17 +3,14 @@ import { page, server, utils } from 'vitest/browser'
 import React from 'react'
 import type { Container } from 'react-dom/client'
 import ReactDOMClient from 'react-dom/client'
-import { nanoid } from '@vitest/utils/helpers'
 
 const { debug, getElementLocatorSelectors } = utils
 
-function getTestIdAttribute() {
-  return server.config.browser.locators.testIdAttribute
-}
-
+let idx = 0
 function ensureTestIdAttribute(element: HTMLElement) {
-  if (!element.hasAttribute(getTestIdAttribute())) {
-    element.setAttribute(getTestIdAttribute(), nanoid())
+  const attributeId = server.config.browser.locators.testIdAttribute
+  if (!element.hasAttribute(attributeId)) {
+    element.setAttribute(attributeId, `__vitest_${idx++}__`)
   }
 }
 

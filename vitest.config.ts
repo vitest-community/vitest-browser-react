@@ -4,7 +4,9 @@ import { playwright } from '@vitest/browser-playwright'
 
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: { include: ['vitest-browser-react'] },
+  optimizeDeps: {
+    include: ['vitest-browser-react'],
+  },
   test: {
     projects: [
       {
@@ -18,7 +20,15 @@ export default defineConfig({
       },
       {
         extends: true,
-        test: { name: 'selector-custom-attr', include: ['test/render-selector.test.tsx'], browser: { locators: { testIdAttribute: 'data-custom-test-id' } } },
+        test: {
+          name: 'selector-custom-attr',
+          include: ['test/render-selector.test.tsx'],
+          browser: {
+            locators: {
+              testIdAttribute: 'data-custom-test-id',
+            },
+          },
+        },
       },
     ],
     printConsoleTrace: true,
