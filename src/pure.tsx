@@ -86,6 +86,7 @@ export async function render(
 
   if (!container) {
     container = baseElement.appendChild(document.createElement('div'))
+    container.setAttribute(getTestIdAttribute(), nanoid())
   }
 
   let root: ReactRoot

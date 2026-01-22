@@ -1,7 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`renders simple component 1`] = `
-<div>
+<div
+  data-testid="stable-snapshot"
+>
   <div>
     Hello World
   </div>

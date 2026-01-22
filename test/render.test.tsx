@@ -1,7 +1,7 @@
 import { expect, test, vi } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
 import { Button } from 'react-aria-components'
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { render } from 'vitest-browser-react'
 import { HelloWorld } from './fixtures/HelloWorld'
 import { Counter } from './fixtures/Counter'
@@ -10,6 +10,8 @@ import { SuspendedHelloWorld } from './fixtures/SuspendedHelloWorld'
 test('renders simple component', async () => {
   const screen = await render(<HelloWorld />)
   await expect.element(page.getByText('Hello World')).toBeVisible()
+
+  screen.container.setAttribute('data-testid', 'stable-snapshot')
   expect(screen.container).toMatchSnapshot()
 })
 
@@ -50,22 +52,22 @@ test('waits for suspended boundaries', async ({ onTestFinished }) => {
   expect(page.getByText('Hello Vitest')).toBeInTheDocument()
 })
 
-test('should use default testid as the root selector', async () => {
-  const stuff = document.createElement('div')
-  stuff.textContent = 'foo'
-  document.body.appendChild(stuff)
-
+test('should apply and use a unique testid as the root selector when unset', async () => {
   const screen = await render(<div>Render</div>)
+
   const selector = page.elementLocator(screen.baseElement).selector
 
   expect(selector).toMatch(/^internal:testid=\[[^\]]*\]$/)
 })
 
+test('should apply and use a unique testid as the locator selector when unset', async () => {
+  const screen = await render(<div>Render</div>)
+
+  expect(screen.locator.selector).toMatch(/^internal:testid=\[[^\]]*\]$/)
+})
+
 test('should not override testid attribute if already set', async () => {
   document.body.setAttribute('data-testid', 'custom-id')
-  const stuff = document.createElement('div')
-  stuff.textContent = 'foo'
-  document.body.appendChild(stuff)
 
   const screen = await render(<div>Render</div>)
   const selector = page.elementLocator(screen.baseElement).selector
