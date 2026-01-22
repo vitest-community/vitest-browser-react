@@ -91,6 +91,8 @@ export async function render(
     container = baseElement.appendChild(document.createElement('div'))
   }
 
+  // Ensuring testid attributes exists so that the generated locators will be stable
+  // https://github.com/vitest-community/vitest-browser-react/issues/42
   ensureTestIdAttribute(baseElement)
   ensureTestIdAttribute(container)
 
