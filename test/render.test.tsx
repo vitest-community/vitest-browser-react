@@ -63,11 +63,11 @@ test('should use default testid as the root selector', async ({ skip, task }) =>
   )
 
   const stuff = document.createElement('div')
-  stuff.textContent = 'DOM content that might change'
+  stuff.textContent = 'foo'
   document.body.appendChild(stuff)
   setTimeout(() => {
-    stuff.textContent = 'Changed'
-  }, 1000)
+    stuff.textContent = 'bar'
+  }, 10)
 
   const screen = await render(<div>Render</div>)
 
@@ -80,11 +80,11 @@ test('should use default testid as the root selector', async ({ skip, task }) =>
 
 test('should correctly select an element after dom changes', async () => {
   const stuff = document.createElement('div')
-  stuff.textContent = 'DOM content that might change'
+  stuff.textContent = 'foo'
   document.body.appendChild(stuff)
   setTimeout(() => {
-    stuff.textContent = 'Changed'
-  }, 1000)
+    stuff.textContent = 'bar'
+  }, 10)
 
   const screen = await render(<ComponentThatChanges />)
 

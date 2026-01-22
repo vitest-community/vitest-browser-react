@@ -2,7 +2,7 @@ import React from 'react'
 import type { JSX } from 'react/jsx-runtime'
 
 export function ComponentThatChanges({
-  timeout = 1500,
+  timeout = 10,
 }: {
   timeout?: number
 }): JSX.Element {
