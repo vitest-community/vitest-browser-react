@@ -7,8 +7,6 @@ import { HelloWorld } from './fixtures/HelloWorld'
 import { Counter } from './fixtures/Counter'
 import { SuspendedHelloWorld } from './fixtures/SuspendedHelloWorld'
 
-vi.mock('@vitest/utils/helpers', { spy: true })
-
 test('renders simple component', async () => {
   const screen = await render(<HelloWorld />)
   await expect.element(page.getByText('Hello World')).toBeVisible()
