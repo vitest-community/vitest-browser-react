@@ -52,7 +52,7 @@ test('waits for suspended boundaries', async ({ onTestFinished }) => {
   expect(page.getByText('Hello Vitest')).toBeInTheDocument()
 })
 
-test('should apply and use a unique testid as the root selector when unset', async () => {
+test('should apply and use a unique testid as the root selector when it does not exists', async () => {
   const screen = await render(<div>Render</div>)
 
   const selector = page.elementLocator(screen.baseElement).selector
@@ -60,7 +60,7 @@ test('should apply and use a unique testid as the root selector when unset', asy
   expect(selector).toMatch(/^internal:testid=\[[^\]]*\]$/)
 })
 
-test('should apply and use a unique testid as the locator selector when unset', async () => {
+test('should apply and use a unique testid as the locator selector when using default container', async () => {
   const screen = await render(<div>Render</div>)
 
   expect(screen.locator.selector).toMatch(/^internal:testid=\[[^\]]*\]$/)
