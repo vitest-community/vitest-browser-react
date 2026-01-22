@@ -24,8 +24,8 @@ importers:
         specifier: ^4.0.0-beta.15
         version: 4.0.0-beta.15(playwright@1.55.1)(vite@7.1.9(jiti@2.6.1)(tsx@4.17.0)(yaml@2.5.0))(vitest@4.0.0-beta.15)
       '@vitest/utils':
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
       bumpp:
         specifier: ^9.4.2
         version: 9.4.2
@@ -1693,8 +1693,8 @@ packages:
   '@vitest/pretty-format@4.0.0-beta.15':
     resolution: {integrity: sha512-DZS8SxaBxuIWLlJH7AwaH8oKbQZnxydN1iYksJThgk9A4ap7xol9YR1QwKS01psYUbXueOB3073BwxqueRwLyA==}
 
-  '@vitest/pretty-format@4.0.15':
-    resolution: {integrity: sha512-SWdqR8vEv83WtZcrfLNqlqeQXlQLh2iilO1Wk1gv4eiHKjEzvgHb2OVc3mIPyhZE6F+CtfYjNlDJwP5MN6Km7A==}
+  '@vitest/pretty-format@4.0.17':
+    resolution: {integrity: sha512-Ah3VAYmjcEdHg6+MwFE17qyLqBHZ+ni2ScKCiW2XrlSBV4H3Z7vYfPfz7CWQ33gyu76oc0Ai36+kgLU3rfF4nw==}
 
   '@vitest/runner@4.0.0-beta.15':
     resolution: {integrity: sha512-SJUTRfTNJkhkvY51HPk5wBw46TJr4IScj+TQhAAWLDHSL1nctzN1qFe8xbmMyZvJW18SfqMh8DPdcdiRLMVMYA==}
@@ -1708,8 +1708,8 @@ packages:
   '@vitest/utils@4.0.0-beta.15':
     resolution: {integrity: sha512-MRs6D//FeZp1kQGyF4fyPZ4YVmlV/topjmiT0iYGBVZYafXAwpXChQhzdW0EIsfjMDsOMWckChKtubvAb6ZnHA==}
 
-  '@vitest/utils@4.0.15':
-    resolution: {integrity: sha512-HXjPW2w5dxhTD0dLwtYHDnelK3j8sR8cWIaLxr22evTyY6q8pRCjZSmhRWVjBaOVXChQd6AwMzi9pucorXCPZA==}
+  '@vitest/utils@4.0.17':
+    resolution: {integrity: sha512-RG6iy+IzQpa9SB8HAFHJ9Y+pTzI+h8553MrciN9eC6TFBErqrQaTas4vG+MVj8S4uKk8uTT2p0vgZPnTdxd96w==}
 
   '@vue/compiler-core@3.4.35':
     resolution: {integrity: sha512-gKp0zGoLnMYtw4uS/SJRRO7rsVggLjvot3mcctlMXunYNsX+aRJDqqw/lV5/gHK91nvaAAlWFgdVl020AW1Prg==}
@@ -5541,7 +5541,7 @@ snapshots:
     dependencies:
       tinyrainbow: 3.0.3
 
-  '@vitest/pretty-format@4.0.15':
+  '@vitest/pretty-format@4.0.17':
     dependencies:
       tinyrainbow: 3.0.3
 
@@ -5563,9 +5563,9 @@ snapshots:
       '@vitest/pretty-format': 4.0.0-beta.15
       tinyrainbow: 3.0.3
 
-  '@vitest/utils@4.0.15':
+  '@vitest/utils@4.0.17':
     dependencies:
-      '@vitest/pretty-format': 4.0.15
+      '@vitest/pretty-format': 4.0.17
       tinyrainbow: 3.0.3
 
   '@vue/compiler-core@3.4.35':
