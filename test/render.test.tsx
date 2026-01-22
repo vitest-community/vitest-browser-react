@@ -1,7 +1,7 @@
 import { expect, test, vi } from 'vitest'
 import { page, server, userEvent } from 'vitest/browser'
 import { Button } from 'react-aria-components'
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 import { render } from 'vitest-browser-react'
 import { HelloWorld } from './fixtures/HelloWorld'
 import { Counter } from './fixtures/Counter'
