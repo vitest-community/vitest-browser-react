@@ -11,6 +11,12 @@ function getTestIdAttribute() {
   return server.config.browser.locators.testIdAttribute
 }
 
+function ensureTestIdAttribute(element: HTMLElement) {
+  if (!element.hasAttribute(getTestIdAttribute())) {
+    element.setAttribute(getTestIdAttribute(), nanoid())
+  }
+}
+
 let activeActs = 0
 
 function setActEnvironment(env: boolean | undefined): void {
@@ -79,15 +85,14 @@ export async function render(
     // default to document.body instead of documentElement to avoid output of potentially-large
     // head elements (such as JSS style blocks) in debug output
     baseElement = document.body
-    if (!document.body.hasAttribute(getTestIdAttribute())) {
-      document.body.setAttribute(getTestIdAttribute(), nanoid())
-    }
   }
 
   if (!container) {
     container = baseElement.appendChild(document.createElement('div'))
-    container.setAttribute(getTestIdAttribute(), nanoid())
   }
+
+  ensureTestIdAttribute(baseElement)
+  ensureTestIdAttribute(container)
 
   let root: ReactRoot
 
