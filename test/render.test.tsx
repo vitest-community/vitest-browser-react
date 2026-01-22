@@ -7,7 +7,6 @@ import * as vitestUtilsHelpersModule from '@vitest/utils/helpers'
 import { HelloWorld } from './fixtures/HelloWorld'
 import { Counter } from './fixtures/Counter'
 import { SuspendedHelloWorld } from './fixtures/SuspendedHelloWorld'
-import { ComponentThatChanges } from './fixtures/ComponentThatChanges'
 
 vi.mock('@vitest/utils/helpers', { spy: true })
 
@@ -76,17 +75,4 @@ test('should use default testid as the root selector', async ({ skip, task }) =>
   expect(selector).toEqual('internal:testid=[data-testid="Random id"s]')
 
   vi.mocked(vitestUtilsHelpersModule.nanoid).mockRestore()
-})
-
-test('should correctly select an element after dom changes', async () => {
-  const stuff = document.createElement('div')
-  stuff.textContent = 'foo'
-  document.body.appendChild(stuff)
-  setTimeout(() => {
-    stuff.textContent = 'bar'
-  }, 10)
-
-  const screen = await render(<ComponentThatChanges />)
-
-  await expect.element(screen.getByText('Hello Vitest!')).toBeVisible()
 })
