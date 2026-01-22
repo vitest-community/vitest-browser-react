@@ -53,23 +53,23 @@ test('waits for suspended boundaries', async ({ onTestFinished }) => {
   expect(page.getByText('Hello Vitest')).toBeInTheDocument()
 })
 
-test('should use default testid as the root selector', async ({ skip, task }) => {
-  if (task.file.projectName === 'prod (chromium)') {
-    skip('Cannot mock nanoid in prod build')
-  }
+test('should use default testid as the root selector', async ({ task }) => {
   vi.mocked(vitestUtilsHelpersModule.nanoid).mockImplementation(
     () => 'Random id',
   )
-
   const stuff = document.createElement('div')
   stuff.textContent = 'foo'
   document.body.appendChild(stuff)
 
   const screen = await render(<div>Render</div>)
-
   const selector = page.elementLocator(screen.baseElement).selector
 
-  expect(selector).toEqual('internal:testid=[data-testid="Random id"s]')
+  if (task.file.projectName === 'prod (chromium)') {
+    expect(selector.startsWith('internal:testid=[')).toBe(true)
+  }
+  else {
+    expect(selector).toEqual('internal:testid=[data-testid="Random id"s]')
+  }
 
   vi.mocked(vitestUtilsHelpersModule.nanoid).mockRestore()
 })
