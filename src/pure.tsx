@@ -1,10 +1,21 @@
 import type { Locator, LocatorSelectors, PrettyDOMOptions } from 'vitest/browser'
-import { page, utils } from 'vitest/browser'
+import { page, server, utils } from 'vitest/browser'
 import React from 'react'
 import type { Container } from 'react-dom/client'
 import ReactDOMClient from 'react-dom/client'
+import { nanoid } from '@vitest/utils/helpers'
 
 const { debug, getElementLocatorSelectors } = utils
+
+function getTestIdAttribute() {
+  return server.config.browser.locators.testIdAttribute
+}
+
+function ensureTestIdAttribute(element: HTMLElement) {
+  if (!element.hasAttribute(getTestIdAttribute())) {
+    element.setAttribute(getTestIdAttribute(), nanoid())
+  }
+}
 
 let activeActs = 0
 
@@ -79,6 +90,11 @@ export async function render(
   if (!container) {
     container = baseElement.appendChild(document.createElement('div'))
   }
+
+  // Ensuring testid attributes exists so that the generated locators will be stable
+  // https://github.com/vitest-community/vitest-browser-react/issues/42
+  ensureTestIdAttribute(baseElement)
+  ensureTestIdAttribute(container)
 
   let root: ReactRoot
 

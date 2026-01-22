@@ -1,5 +1,5 @@
 import { expect, test, vi } from 'vitest'
-import { page, userEvent } from 'vitest/browser'
+import { page, server, userEvent } from 'vitest/browser'
 import { Button } from 'react-aria-components'
 import { Suspense } from 'react'
 import { render } from 'vitest-browser-react'
@@ -10,6 +10,8 @@ import { SuspendedHelloWorld } from './fixtures/SuspendedHelloWorld'
 test('renders simple component', async () => {
   const screen = await render(<HelloWorld />)
   await expect.element(page.getByText('Hello World')).toBeVisible()
+
+  screen.container.setAttribute(server.config.browser.locators.testIdAttribute, 'stable-snapshot')
   expect(screen.container).toMatchSnapshot()
 })
 
