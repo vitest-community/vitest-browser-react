@@ -4,7 +4,6 @@ import { page, server } from 'vitest/browser'
 
 test('should apply and use a unique testid as the root selector when it does not exists', async () => {
   const screen = await render(<div>Render</div>)
-
   const selector = page.elementLocator(screen.baseElement).selector
 
   expect(selector).toMatch(/^internal:testid=\[[^\]]*\]$/)
