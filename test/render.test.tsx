@@ -64,9 +64,6 @@ test('should use default testid as the root selector', async ({ skip, task }) =>
   const stuff = document.createElement('div')
   stuff.textContent = 'foo'
   document.body.appendChild(stuff)
-  setTimeout(() => {
-    stuff.textContent = 'bar'
-  }, 10)
 
   const screen = await render(<div>Render</div>)
 
