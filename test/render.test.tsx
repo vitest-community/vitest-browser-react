@@ -1,5 +1,5 @@
 import { expect, test, vi } from 'vitest'
-import { page, userEvent } from 'vitest/browser'
+import { page, server, userEvent } from 'vitest/browser'
 import { Button } from 'react-aria-components'
 import React, { Suspense } from 'react'
 import { render } from 'vitest-browser-react'
@@ -11,7 +11,7 @@ test('renders simple component', async () => {
   const screen = await render(<HelloWorld />)
   await expect.element(page.getByText('Hello World')).toBeVisible()
 
-  screen.container.setAttribute('data-testid', 'stable-snapshot')
+  screen.container.setAttribute(server.config.browser.locators.testIdAttribute, 'stable-snapshot')
   expect(screen.container).toMatchSnapshot()
 })
 
@@ -67,10 +67,10 @@ test('should apply and use a unique testid as the locator selector when using de
 })
 
 test('should not override testid attribute if already set', async () => {
-  document.body.setAttribute('data-testid', 'custom-id')
+  document.body.setAttribute(server.config.browser.locators.testIdAttribute, 'custom-id')
 
   const screen = await render(<div>Render</div>)
   const selector = page.elementLocator(screen.baseElement).selector
 
-  expect(selector).toBe(`internal:testid=[data-testid="custom-id"s]`)
+  expect(selector).toBe(`internal:testid=[${server.config.browser.locators.testIdAttribute}="custom-id"s]`)
 })
