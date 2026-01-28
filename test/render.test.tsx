@@ -48,5 +48,5 @@ test('waits for suspended boundaries', async ({ onTestFinished }) => {
   await expect.element(page.getByText('Suspended!')).toBeInTheDocument()
   vi.runAllTimers()
   await result
-  expect(page.getByText('Hello Vitest')).toBeInTheDocument()
+  await expect.element(page.getByText('Hello Vitest')).toBeInTheDocument()
 })

@@ -17,7 +17,7 @@ function ensureTestIdAttribute(element: HTMLElement) {
 let activeActs = 0
 
 function setActEnvironment(env: boolean | undefined): void {
-  (globalThis as any).IS_REACT_ACT_ENVIRONMENT = env
+  ;(globalThis as any).IS_REACT_ACT_ENVIRONMENT = env
 }
 
 function updateActEnvironment(): void {
@@ -30,7 +30,7 @@ const _act = React.act || React.unstable_act
 // we call act only when rendering to flush any possible effects
 // usually the async nature of Vitest browser mode ensures consistency,
 // but rendering is sync and controlled by React directly
-const act = typeof _act !== 'function'
+const act: typeof React.act = typeof _act !== 'function'
   ? async (cb: () => unknown) => { await cb() }
   : async (cb: () => unknown) => {
     activeActs++
@@ -115,7 +115,7 @@ export async function render(
     })
   }
 
-  await act(() => {
+  await act(async () => {
     root!.render(
       strictModeIfNeeded(wrapUiIfNeeded(ui, WrapperComponent)),
     )
@@ -127,12 +127,12 @@ export async function render(
     locator: page.elementLocator(container),
     debug: (el, maxLength, options) => debug(el, maxLength, options),
     unmount: async () => {
-      await act(() => {
+      await act(async () => {
         root.unmount()
       })
     },
     rerender: async (newUi: React.ReactNode) => {
-      await act(() => {
+      await act(async () => {
         root.render(
           strictModeIfNeeded(wrapUiIfNeeded(newUi, WrapperComponent)),
         )
@@ -210,7 +210,7 @@ export async function renderHook<Props, Result>(renderCallback: (initialProps?: 
 
 export async function cleanup(): Promise<void> {
   for (const { root, container } of mountedRootEntries) {
-    await act(() => {
+    await act(async () => {
       root.unmount()
     })
     if (container.parentNode === document.body) {

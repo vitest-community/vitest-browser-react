@@ -11,17 +11,12 @@ export default defineConfig({
     projects: [
       {
         extends: true,
-        test: { name: 'prod' },
-      },
-      {
-        extends: true,
-        test: { name: 'dev' },
-        resolve: { conditions: ['vdev'] },
+        test: { name: 'react' },
       },
       {
         extends: true,
         test: {
-          name: 'selector-custom-attr',
+          name: 'custom-attr',
           include: ['test/render-selector.test.tsx'],
           browser: {
             locators: {
