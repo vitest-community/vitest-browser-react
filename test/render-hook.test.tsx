@@ -37,7 +37,7 @@ test('allows rerendering', async () => {
 
   expect(result.current).toEqual(['left', expect.any(Function)])
 
-  rerender({ branch: 'right' })
+  await rerender({ branch: 'right' })
 
   expect(result.current).toEqual(['right', expect.any(Function)])
 })
