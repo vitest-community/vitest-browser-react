@@ -121,15 +121,19 @@ export async function render(
     )
   })
 
+  const locator = page.elementLocator(container)
+  await locator.mark?.('react.render')
+
   return {
     container,
     baseElement,
-    locator: page.elementLocator(container),
+    locator,
     debug: (el, maxLength, options) => debug(el, maxLength, options),
     unmount: async () => {
       await act(async () => {
         root.unmount()
       })
+      await locator.mark?.('react.unmount')
     },
     rerender: async (newUi: React.ReactNode) => {
       await act(async () => {
@@ -137,6 +141,7 @@ export async function render(
           strictModeIfNeeded(wrapUiIfNeeded(newUi, WrapperComponent)),
         )
       })
+      await locator.mark?.('react.rerender')
     },
     asFragment: () => {
       return document.createRange().createContextualFragment(container.innerHTML)

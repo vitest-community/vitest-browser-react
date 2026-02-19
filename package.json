@@ -82,7 +82,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.3",
-    "@vitest/browser-playwright": "^4.0.18",
+    "@vitest/browser-playwright": "https://pkg.pr.new/@vitest/browser-playwright@32067b5",
     "bumpp": "^9.4.2",
     "changelogithub": "^0.13.9",
     "eslint": "^9.8.0",
@@ -93,7 +93,7 @@
     "tsdown": "^0.15.9",
     "tsx": "^4.17.0",
     "typescript": "^5.5.4",
-    "vitest": "^4.0.18",
+    "vitest": "https://pkg.pr.new/vitest@32067b5",
     "zx": "^8.1.4"
   }
 }
