@@ -122,9 +122,9 @@ export async function render(
   })
 
   const locator = page.elementLocator(container)
-  await locator.mark?.('react.render')
+  await mark(locator, 'react.render', render, new Error('react.render'))
 
-  return {
+  const renderResult: RenderResult = {
     container,
     baseElement,
     locator,
@@ -133,7 +133,7 @@ export async function render(
       await act(async () => {
         root.unmount()
       })
-      await locator.mark?.('react.unmount')
+      await mark(locator, 'react.unmount', renderResult.unmount, new Error('react.unmount'))
     },
     rerender: async (newUi: React.ReactNode) => {
       await act(async () => {
@@ -141,13 +141,21 @@ export async function render(
           strictModeIfNeeded(wrapUiIfNeeded(newUi, WrapperComponent)),
         )
       })
-      await locator.mark?.('react.rerender')
+      await mark(locator, 'react.rerender', renderResult.rerender, new Error('react.rerender'))
     },
     asFragment: () => {
       return document.createRange().createContextualFragment(container.innerHTML)
     },
     ...getElementLocatorSelectors(baseElement),
   }
+  return renderResult
+}
+
+function mark(locator: Locator, name: string, fn: Function, error: Error) {
+  if ('captureStackTrace' in Error) {
+    (Error as any).captureStackTrace(error, fn)
+  }
+  return locator.mark?.(name, error)
 }
 
 export interface RenderHookOptions<Props> extends ComponentRenderOptions {
