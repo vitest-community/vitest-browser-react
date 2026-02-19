@@ -82,7 +82,7 @@
     "@playwright/test": "^1.58.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^4.3.3",
+    "@vitejs/plugin-react": "^5.1.4",
     "@vitest/browser-playwright": "https://pkg.pr.new/@vitest/browser-playwright@32067b5",
     "bumpp": "^9.4.2",
     "changelogithub": "^0.13.9",
