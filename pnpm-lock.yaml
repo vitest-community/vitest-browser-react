@@ -11,6 +11,9 @@ importers:
       '@antfu/eslint-config':
         specifier: ^2.24.1
         version: 2.24.1(@vue/compiler-sfc@3.4.35)(eslint@9.8.0)(typescript@5.5.4)(vitest@4.1.0-beta.4)
+      '@playwright/test':
+        specifier: ^1.58.2
+        version: 1.58.2
       '@types/react':
         specifier: ^19.0.0
         version: 19.1.8
@@ -22,7 +25,7 @@ importers:
         version: 4.3.3
       '@vitest/browser-playwright':
         specifier: https://pkg.pr.new/@vitest/browser-playwright@32067b5
-        version: https://pkg.pr.new/@vitest/browser-playwright@32067b5(playwright@1.55.1)(vitest@4.1.0-beta.4)
+        version: https://pkg.pr.new/@vitest/browser-playwright@32067b5(playwright@1.58.2)(vitest@4.1.0-beta.4)
       bumpp:
         specifier: ^9.4.2
         version: 9.4.2
@@ -33,8 +36,8 @@ importers:
         specifier: ^9.8.0
         version: 9.8.0
       playwright:
-        specifier: ^1.55.1
-        version: 1.55.1
+        specifier: ^1.58.2
+        version: 1.58.2
       react:
         specifier: ^19.0.0
         version: 19.1.0
@@ -533,6 +536,11 @@ packages:
   '@pkgr/core@0.1.1':
     resolution: {integrity: sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+
+  '@playwright/test@1.58.2':
+    resolution: {integrity: sha512-akea+6bHYBBfA9uQqSYmlJXn61cTa+jbO87xVLCWbTqbWadRVmhxlXATaOjOgcBaWU4ePo0wB41KMFv3o35IXA==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   '@polka/url@1.0.0-next.25':
     resolution: {integrity: sha512-j7P6Rgr3mmtdkeDGTe0E/aYyWEWVtc5yFXtHCRHs28/jptDEWfaVOc5T7cblqy1XKPPfCxJc/8DwQ5YgLOZOVQ==}
@@ -2638,13 +2646,13 @@ packages:
   pkg-types@1.1.3:
     resolution: {integrity: sha512-+JrgthZG6m3ckicaOB74TwQ+tBWsFl3qVQg7mN8ulwSOElJ7gBhKzj2VkCPnZ4NlF6kEquYU+RIYNVAvzd54UA==}
 
-  playwright-core@1.55.1:
-    resolution: {integrity: sha512-Z6Mh9mkwX+zxSlHqdr5AOcJnfp+xUWLCt9uKV18fhzA8eyxUd8NUWzAjxUh55RZKSYwDGX0cfaySdhZJGMoJ+w==}
+  playwright-core@1.58.2:
+    resolution: {integrity: sha512-yZkEtftgwS8CsfYo7nm0KE8jsvm6i/PTgVtB8DL726wNf6H2IMsDuxCpJj59KDaxCtSnrWan2AeDqM7JBaultg==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.55.1:
-    resolution: {integrity: sha512-cJW4Xd/G3v5ovXtJJ52MAOclqeac9S/aGGgRzLabuF8TnIb6xHvMzKIa6JmrRzUkeXJgfL1MhukP0NK6l39h3A==}
+  playwright@1.58.2:
+    resolution: {integrity: sha512-vA30H8Nvkq/cPBnNw4Q8TWz1EJyqgpuinBcHET0YVJVFldr8JDNiU9LaWAE1KqSkRYazuaBhTpB5ZzShOezQ6A==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -3682,6 +3690,10 @@ snapshots:
   '@oxc-project/types@0.95.0': {}
 
   '@pkgr/core@0.1.1': {}
+
+  '@playwright/test@1.58.2':
+    dependencies:
+      playwright: 1.58.2
 
   '@polka/url@1.0.0-next.25': {}
 
@@ -5040,11 +5052,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/browser-playwright@https://pkg.pr.new/@vitest/browser-playwright@32067b5(playwright@1.55.1)(vitest@4.1.0-beta.4)':
+  '@vitest/browser-playwright@https://pkg.pr.new/@vitest/browser-playwright@32067b5(playwright@1.58.2)(vitest@4.1.0-beta.4)':
     dependencies:
       '@vitest/browser': https://pkg.pr.new/vitest-dev/vitest/@vitest/browser@32067b5(vitest@4.1.0-beta.4)
       '@vitest/mocker': https://pkg.pr.new/vitest-dev/vitest/@vitest/mocker@32067b5
-      playwright: 1.55.1
+      playwright: 1.58.2
       tinyrainbow: 3.0.3
       vitest: https://pkg.pr.new/vitest@32067b5(@types/node@22.1.0)(@vitest/browser-playwright@4.1.0-beta.4)
     transitivePeerDependencies:
@@ -6360,11 +6372,11 @@ snapshots:
       mlly: 1.7.1
       pathe: 1.1.2
 
-  playwright-core@1.55.1: {}
+  playwright-core@1.58.2: {}
 
-  playwright@1.55.1:
+  playwright@1.58.2:
     dependencies:
-      playwright-core: 1.55.1
+      playwright-core: 1.58.2
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -6890,7 +6902,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.1.0
-      '@vitest/browser-playwright': https://pkg.pr.new/@vitest/browser-playwright@32067b5(playwright@1.55.1)(vitest@4.1.0-beta.4)
+      '@vitest/browser-playwright': https://pkg.pr.new/@vitest/browser-playwright@32067b5(playwright@1.58.2)(vitest@4.1.0-beta.4)
     transitivePeerDependencies:
       - msw
 
