@@ -30,7 +30,13 @@ export default defineConfig({
     printConsoleTrace: true,
     browser: {
       enabled: true,
-      provider: playwright(),
+      viewport: { width: 500, height: 600 },
+      provider: playwright({
+        actionTimeout: 3000,
+        contextOptions: {
+          viewport: { width: 500, height: 600 },
+        },
+      }),
       instances: [
         { browser: 'chromium' },
       ],
