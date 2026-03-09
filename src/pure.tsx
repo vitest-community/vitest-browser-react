@@ -53,7 +53,9 @@ export interface RenderResult extends LocatorSelectors {
     maxLength?: number,
     options?: PrettyDOMOptions
   ) => void
+  /** Unmount the component. Also records a `react.unmount` trace mark. */
   unmount: () => Promise<void>
+  /** Re-render the component with new props. Also records a `react.rerender` trace mark. */
   rerender: (ui: React.ReactNode) => Promise<void>
   asFragment: () => DocumentFragment
 }
@@ -74,6 +76,10 @@ const mountedRootEntries: {
   root: ReturnType<typeof createConcurrentRoot>
 }[] = []
 
+/**
+ * Render a React component into the document.
+ * Also records a `react.render` trace mark.
+ */
 export async function render(
   ui: React.ReactNode,
   { container, baseElement, wrapper: WrapperComponent }: ComponentRenderOptions = {},
