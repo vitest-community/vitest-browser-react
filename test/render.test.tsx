@@ -22,6 +22,23 @@ test('renders counter', async () => {
   await expect.element(screen.getByText('Count is 2')).toBeVisible()
 })
 
+// test trace output by:
+// pnpm test render.test.tsx --browser=chromium -t trace --browser.trace=on --run
+// pnpm playwright show-trace test/__traces__/render.test.tsx/react--chromium--trace-mark-with-render-rerender-unmount-0-0.trace.zip
+test('trace mark with render, rerender, unmount', async () => {
+  const screen = await render(<Counter initialCount={1} />)
+
+  await expect.element(screen.getByText('Count is 1')).toBeVisible()
+  await screen.getByRole('button', { name: 'Increment' }).click()
+  await expect.element(screen.getByText('Count is 2')).toBeVisible()
+
+  await screen.rerender(<Counter initialCount={5} />)
+  await expect.element(screen.getByText('Count is 5')).toBeVisible()
+
+  await screen.unmount()
+  expect(screen.container.innerHTML).toBe('')
+})
+
 test('should fire the onPress/onClick handler', async () => {
   const handler = vi.fn()
   const screen = await page.render(<Button onPress={handler}>Button</Button>)
