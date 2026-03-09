@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     include: ['vitest-browser-react'],
+    force: true,
   },
   test: {
     projects: [

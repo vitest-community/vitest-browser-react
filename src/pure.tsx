@@ -53,7 +53,9 @@ export interface RenderResult extends LocatorSelectors {
     maxLength?: number,
     options?: PrettyDOMOptions
   ) => void
+  /** Unmount the component. Also records a `react.unmount` trace mark. */
   unmount: () => Promise<void>
+  /** Re-render the component with new props. Also records a `react.rerender` trace mark. */
   rerender: (ui: React.ReactNode) => Promise<void>
   asFragment: () => DocumentFragment
 }
@@ -74,6 +76,10 @@ const mountedRootEntries: {
   root: ReturnType<typeof createConcurrentRoot>
 }[] = []
 
+/**
+ * Render a React component into the document.
+ * Also records a `react.render` trace mark.
+ */
 export async function render(
   ui: React.ReactNode,
   { container, baseElement, wrapper: WrapperComponent }: ComponentRenderOptions = {},
@@ -121,15 +127,19 @@ export async function render(
     )
   })
 
-  return {
+  const locator = page.elementLocator(container)
+  await mark(locator, 'react.render', render)
+
+  const renderResult: RenderResult = {
     container,
     baseElement,
-    locator: page.elementLocator(container),
+    locator,
     debug: (el, maxLength, options) => debug(el, maxLength, options),
     unmount: async () => {
       await act(async () => {
         root.unmount()
       })
+      await mark(locator, 'react.unmount', renderResult.unmount)
     },
     rerender: async (newUi: React.ReactNode) => {
       await act(async () => {
@@ -137,12 +147,26 @@ export async function render(
           strictModeIfNeeded(wrapUiIfNeeded(newUi, WrapperComponent)),
         )
       })
+      await mark(locator, 'react.rerender', renderResult.rerender)
     },
     asFragment: () => {
       return document.createRange().createContextualFragment(container.innerHTML)
     },
     ...getElementLocatorSelectors(baseElement),
   }
+  return renderResult
+}
+
+function mark(locator: Locator, name: string, fn: Function) {
+  if (!locator.mark) {
+    return
+  }
+
+  const error = new Error(name)
+  if ('captureStackTrace' in Error) {
+    (Error as any).captureStackTrace(error, fn)
+  }
+  return locator.mark(name, error)
 }
 
 export interface RenderHookOptions<Props> extends ComponentRenderOptions {

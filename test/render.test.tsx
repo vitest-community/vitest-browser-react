@@ -50,3 +50,20 @@ test('waits for suspended boundaries', async ({ onTestFinished }) => {
   await result
   await expect.element(page.getByText('Hello Vitest')).toBeInTheDocument()
 })
+
+// test trace output by:
+// pnpm test render.test.tsx --browser=chromium -t trace --browser.trace=on --browser.headless --run
+// pnpm playwright show-trace test/__traces__/render.test.tsx/react--chromium--trace-mark-0-0.trace.zip
+test('trace mark', async () => {
+  const screen = await render(<Counter initialCount={1} />)
+
+  await expect.element(screen.getByText('Count is 1')).toBeVisible()
+  await screen.getByRole('button', { name: 'Increment' }).click()
+  await expect.element(screen.getByText('Count is 2')).toBeVisible()
+
+  await screen.rerender(<Counter initialCount={5} />) // doesn't matter
+  await expect.element(screen.getByText('Count is 2')).toBeVisible()
+
+  await screen.unmount()
+  expect(screen.container.innerHTML).toBe('')
+})

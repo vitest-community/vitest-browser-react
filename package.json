@@ -79,21 +79,22 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.24.1",
+    "@playwright/test": "^1.58.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^4.3.3",
-    "@vitest/browser-playwright": "^4.0.18",
+    "@vitejs/plugin-react": "^5.1.4",
+    "@vitest/browser-playwright": "4.1.0-beta.6",
     "bumpp": "^9.4.2",
     "changelogithub": "^0.13.9",
     "eslint": "^9.8.0",
-    "playwright": "^1.55.1",
+    "playwright": "^1.58.2",
     "react": "^19.0.0",
     "react-aria-components": "^1.10.1",
     "react-dom": "^19.0.0",
     "tsdown": "^0.15.9",
     "tsx": "^4.17.0",
     "typescript": "^5.5.4",
-    "vitest": "^4.0.18",
+    "vitest": "4.1.0-beta.6",
     "zx": "^8.1.4"
   }
 }
