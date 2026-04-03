@@ -64,6 +64,11 @@ export interface ComponentRenderOptions {
   container?: HTMLElement
   baseElement?: HTMLElement
   wrapper?: React.JSXElementConstructor<{ children: React.ReactNode }>
+  /**
+   * Options passed to React's `createRoot`.
+   *
+   * @see {@link https://react.dev/reference/react-dom/client/createRoot API Reference for `createRoot`}
+   */
   createRootOptions?: RootOptions
 }
 
