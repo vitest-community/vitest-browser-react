@@ -256,7 +256,7 @@ interface ReactRoot {
   unmount: () => void
 }
 
-function createConcurrentRoot(container: HTMLElement, options?: RootOptions): ReactRoot {
+function createConcurrentRoot(container: HTMLElement, options: RootOptions | undefined): ReactRoot {
   const root = ReactDOMClient.createRoot(container, options)
 
   return {
