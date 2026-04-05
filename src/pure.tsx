@@ -1,7 +1,7 @@
 import type { Locator, LocatorSelectors, PrettyDOMOptions } from 'vitest/browser'
 import { page, server, utils } from 'vitest/browser'
 import React from 'react'
-import type { Container } from 'react-dom/client'
+import type { Container, RootOptions } from 'react-dom/client'
 import ReactDOMClient from 'react-dom/client'
 
 const { debug, getElementLocatorSelectors } = utils
@@ -64,6 +64,12 @@ export interface ComponentRenderOptions {
   container?: HTMLElement
   baseElement?: HTMLElement
   wrapper?: React.JSXElementConstructor<{ children: React.ReactNode }>
+  /**
+   * Options passed to React's `createRoot`.
+   *
+   * @see {@link https://react.dev/reference/react-dom/client/createRoot API Reference for `createRoot`}
+   */
+  createRootOptions?: RootOptions
 }
 
 export interface RenderOptions extends ComponentRenderOptions {}
@@ -82,7 +88,7 @@ const mountedRootEntries: {
  */
 export async function render(
   ui: React.ReactNode,
-  { container, baseElement, wrapper: WrapperComponent }: ComponentRenderOptions = {},
+  { container, baseElement, wrapper: WrapperComponent, createRootOptions }: RenderOptions = {},
 ): Promise<RenderResult> {
   if (!baseElement) {
     // default to document.body instead of documentElement to avoid output of potentially-large
@@ -102,7 +108,7 @@ export async function render(
   let root: ReactRoot
 
   if (!mountedContainers.has(container)) {
-    root = createConcurrentRoot(container)
+    root = createConcurrentRoot(container, createRootOptions)
 
     mountedRootEntries.push({ container, root })
     // we'll add it to the mounted containers regardless of whether it's actually
@@ -250,8 +256,8 @@ interface ReactRoot {
   unmount: () => void
 }
 
-function createConcurrentRoot(container: HTMLElement): ReactRoot {
-  const root = ReactDOMClient.createRoot(container)
+function createConcurrentRoot(container: HTMLElement, options: RootOptions | undefined): ReactRoot {
+  const root = ReactDOMClient.createRoot(container, options)
 
   return {
     render(element: React.ReactNode) {

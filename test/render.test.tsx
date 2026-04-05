@@ -6,6 +6,7 @@ import { render } from 'vitest-browser-react'
 import { HelloWorld } from './fixtures/HelloWorld'
 import { Counter } from './fixtures/Counter'
 import { SuspendedHelloWorld } from './fixtures/SuspendedHelloWorld'
+import { RenderId } from './fixtures/RenderId'
 
 test('renders simple component', async () => {
   const screen = await render(<HelloWorld />)
@@ -66,4 +67,14 @@ test('trace mark', async () => {
 
   await screen.unmount()
   expect(screen.container.innerHTML).toBe('')
+})
+
+test('passes createRootOptions to createRoot', async () => {
+  const identifierPrefix = 'my-custom-id-prefix'
+
+  const screen = await render(<RenderId />, {
+    createRootOptions: { identifierPrefix },
+  })
+
+  expect(screen.container).toHaveTextContent(identifierPrefix)
 })
