@@ -1,5 +1,7 @@
 # vitest-browser-react
 
+[Docs](https://vitest.dev/api/browser/react.html) | [Package](https://npmx.dev/package/vitest-browser-react)
+
 Render React components in Vitest Browser Mode. This library follows `testing-library` principles and exposes only [locators](https://vitest.dev/guide/browser/locators) and utilities that encourage you to write tests that closely resemble how your React components are used.
 
 `vitest-browser-react` aims to deliver a good developer experience in Vitest Browser Mode by incorporating the [locators API](https://vitest.dev/api/browser/locators.html) and [retry-ability](https://vitest.dev/api/browser/assertions.html) mechanism directly into the `render` result. This allows you to call user methods without needing to verify the element's existence or wait for external events (like API calls) to render the element.
