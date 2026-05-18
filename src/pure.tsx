@@ -19,6 +19,7 @@ function getElementLocator(element: HTMLElement, baseElement: HTMLElement): Loca
     return page.elementLocator(element)
   }
   catch {
+    // Detached containers cannot be converted to element locators, but render should still succeed.
     return page.elementLocator(baseElement)
   }
 }
