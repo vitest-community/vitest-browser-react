@@ -42,3 +42,14 @@ test('should not override testid attribute if already set', async () => {
 
   expect(selector).toBe(`internal:testid=[${testIdAttribute}="custom-id"s]`)
 })
+
+test('should render when container is not attached to the document', async () => {
+  const container = document.createElement('tr')
+
+  const screen = await render(<th>Cell</th>, {
+    container,
+  })
+
+  expect(screen.container).toBe(container)
+  expect(container).toHaveTextContent('Cell')
+})

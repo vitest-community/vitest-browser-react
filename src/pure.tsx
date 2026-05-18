@@ -14,6 +14,16 @@ function ensureTestIdAttribute(element: HTMLElement) {
   }
 }
 
+function getElementLocator(element: HTMLElement): Locator {
+  if (element.isConnected) {
+    return page.elementLocator(element)
+  }
+
+  const attributeId = server.config.browser.locators.testIdAttribute
+  const testId = element.getAttribute(attributeId)!
+  return page.locator(`internal:testid=[${attributeId}="${testId}"s]`)
+}
+
 let activeActs = 0
 
 function setActEnvironment(env: boolean | undefined): void {
@@ -133,7 +143,7 @@ export async function render(
     )
   })
 
-  const locator = page.elementLocator(container)
+  const locator = getElementLocator(container)
   await mark(locator, 'react.render', render)
 
   const renderResult: RenderResult = {
