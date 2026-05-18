@@ -14,15 +14,13 @@ function ensureTestIdAttribute(element: HTMLElement) {
   }
 }
 
-function getElementLocator(element: HTMLElement): Locator {
-  if (element.isConnected) {
+function getElementLocator(element: HTMLElement, baseElement: HTMLElement): Locator {
+  try {
     return page.elementLocator(element)
   }
-
-  ensureTestIdAttribute(element)
-  const attributeId = server.config.browser.locators.testIdAttribute
-  const testId = element.getAttribute(attributeId)!
-  return page.getByTestId(testId)
+  catch {
+    return page.elementLocator(baseElement)
+  }
 }
 
 let activeActs = 0
@@ -144,7 +142,7 @@ export async function render(
     )
   })
 
-  const locator = getElementLocator(container)
+  const locator = getElementLocator(container, baseElement)
   await mark(locator, 'react.render', render)
 
   const renderResult: RenderResult = {
