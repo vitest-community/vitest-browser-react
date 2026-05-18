@@ -46,10 +46,10 @@ test('should not override testid attribute if already set', async () => {
 test('should render into detached custom container', async () => {
   const container = document.createElement('tr')
 
-  const screen = await render(<th>Cell</th>, {
+  const result = await render(<th>Cell</th>, {
     container,
   })
 
-  expect(screen.container).toBe(container)
+  expect(result.container).toBe(container)
   expect(container).toHaveTextContent('Cell')
 })
