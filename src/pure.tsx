@@ -19,9 +19,9 @@ function getElementLocator(element: HTMLElement): Locator {
     return page.elementLocator(element)
   }
 
+  ensureTestIdAttribute(element)
   const attributeId = server.config.browser.locators.testIdAttribute
-  const testId = element.getAttribute(attributeId) ?? `__vitest_${idx++}__`
-  element.setAttribute(attributeId, testId)
+  const testId = element.getAttribute(attributeId)!
   return page.getByTestId(testId)
 }
 
