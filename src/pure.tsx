@@ -14,6 +14,17 @@ function ensureTestIdAttribute(element: HTMLElement) {
   }
 }
 
+function getElementLocator(element: HTMLElement, baseElement: HTMLElement): Locator {
+  try {
+    return page.elementLocator(element)
+  }
+  catch (error) {
+    void error
+    // Detached containers cannot be converted to element locators, but render should still succeed.
+    return page.elementLocator(baseElement)
+  }
+}
+
 let activeActs = 0
 
 function setActEnvironment(env: boolean | undefined): void {
@@ -133,7 +144,7 @@ export async function render(
     )
   })
 
-  const locator = page.elementLocator(container)
+  const locator = getElementLocator(container, baseElement)
   await mark(locator, 'react.render', render)
 
   const renderResult: RenderResult = {
