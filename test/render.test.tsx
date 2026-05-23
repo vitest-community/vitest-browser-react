@@ -6,6 +6,12 @@ import { render } from 'vitest-browser-react'
 import { HelloWorld } from './fixtures/HelloWorld'
 import { Counter } from './fixtures/Counter'
 import { SuspendedHelloWorld } from './fixtures/SuspendedHelloWorld'
+import { RenderId } from './fixtures/RenderId'
+
+test('page functions are defined', () => {
+  expect(page.render).toBeTypeOf('function')
+  expect(page.renderHook).toBeTypeOf('function')
+})
 
 test('renders simple component', async () => {
   const screen = await render(<HelloWorld />)
@@ -24,7 +30,7 @@ test('renders counter', async () => {
 
 test('should fire the onPress/onClick handler', async () => {
   const handler = vi.fn()
-  const screen = await page.render(<Button onPress={handler}>Button</Button>)
+  const screen = await render(<Button onPress={handler}>Button</Button>)
   await userEvent.click(screen.getByRole('button'))
   // await screen.getByRole('button').click()
   expect(handler).toHaveBeenCalled()
@@ -66,4 +72,14 @@ test('trace mark', async () => {
 
   await screen.unmount()
   expect(screen.container.innerHTML).toBe('')
+})
+
+test('passes createRootOptions to createRoot', async () => {
+  const identifierPrefix = 'my-custom-id-prefix'
+
+  const screen = await render(<RenderId />, {
+    createRootOptions: { identifierPrefix },
+  })
+
+  expect(screen.container).toHaveTextContent(identifierPrefix)
 })
