@@ -30,6 +30,8 @@ export default defineConfig({
     printConsoleTrace: true,
     browser: {
       enabled: true,
+      headless: true,
+      traceView: true,
       provider: playwright(),
       instances: [
         { browser: 'chromium' },
