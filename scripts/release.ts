@@ -1,25 +1,22 @@
-#!/usr/bin/env zx
-
 import { versionBump } from 'bumpp'
-import { $ } from 'zx'
 
-try {
-  console.log('Bumping versions in packages:', './package.json', '\n')
+async function main() {
+  const release = process.env.RELEASE_VERSION || process.env.RELEASE_TYPE
 
-  const result = await versionBump({
-    files: ['./package.json'],
+  console.log('Bumping version in package.json\n')
+
+  await versionBump({
+    files: ['package.json'],
+    release,
     commit: true,
-    push: true,
-    tag: true,
+    tag: false,
+    push: false,
+    printCommits: false,
+    confirm: !release,
   })
+}
 
-  if (!result.newVersion.includes('beta')) {
-    console.log('Pushing to release branch')
-    await $`git update-ref refs/heads/release refs/heads/main`
-    await $`git push origin release`
-  }
-  console.log('New release is ready, waiting for conformation at https://github.com/vitest-community/vitest-browser-react/actions')
-}
-catch (err) {
-  console.error(err)
-}
+main().catch((error) => {
+  console.error('Error during version bump:', error)
+  process.exit(1)
+})
