@@ -81,5 +81,5 @@ test('passes createRootOptions to createRoot', async () => {
     createRootOptions: { identifierPrefix },
   })
 
-  expect(screen.container).toHaveTextContent(identifierPrefix)
+  expect(screen.container).toMatchTextContent(identifierPrefix)
 })
