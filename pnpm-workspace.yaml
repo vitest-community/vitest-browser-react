@@ -1,2 +1,11 @@
 allowBuilds:
   esbuild: true
+minimumReleaseAgeExclude:
+  - '@vitest/browser-playwright@5.0.0'
+  - '@vitest/browser@5.0.0'
+  - '@vitest/mocker@5.0.0'
+  - '@vitest/pretty-format@5.0.0'
+  - '@vitest/spy@5.0.0'
+  - '@vitest/ui@5.0.0'
+  - '@vitest/utils@5.0.0'
+  - vitest@5.0.0
